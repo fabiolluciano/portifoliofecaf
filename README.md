@@ -1,72 +1,117 @@
 # portifoliofecaf
-Documentação do Projeto: Dashboard de Análise de Dados com Supabase
-Objetivo do Projeto
-Este projeto tem como objetivo construir um dashboard interativo utilizando Streamlit e Supabase para análise de dados de filmes. Através desse painel, os usuários podem visualizar informações sobre filmes, como ano de lançamento, gênero e outros atributos, além de explorar gráficos que fornecem insights valiosos para análise de tendências no cinema.
+Aqui está a versão ajustada do seu documento com foco no que você fez sobre os filmes até 2016:
 
-Tecnologias Utilizadas
-Streamlit : Framework para construir interfaces web de forma simples.
-Supabase : Backend que fornece banco de dados PostgreSQL, autenticação e APIs.
-Plotly : Biblioteca para visualização interativa de gráficos.
-Pandas : Biblioteca para manipulação de dados.
-Configuração do Projeto
-1. Instalação de Dependências
-Clone o repositório e instale as dependências:
+---
 
-git clone <repositório-do-projeto>
-cd <diretório-do-projeto>
-pip install -r requirements.txt
+# Documentação do Projeto: Análise de Dados de Filmes até 2016
 
-2. Definição de Variáveis ​​de Ambiente
-Crie um arquivo .envna raiz do projeto com as variáveis ​​de ambiente permitidas para o Supabase:
+## 1. TÍTULO: 
+Análise de Dados de Filmes até 2016 com Streamlit e PostgreSQL
 
-texto simples
+## 2. DESCRIÇÃO DO PROJETO:
+O objetivo deste projeto foi realizar uma análise interativa de filmes lançados até 2016, utilizando dados como título, ano, gênero, diretor, e avaliação. A análise foi feita com dados extraídos de um banco de dados PostgreSQL e visualizados com gráficos interativos utilizando a biblioteca Plotly, integrados em um dashboard feito com Streamlit.
 
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+## 3. CONFIGURAÇÃO E EXECUÇÃO DO PROJETO:
+### 3.1. Pré-Requisitos:
+- Python 3.7 ou superior
+- Bibliotecas: pandas, plotly, streamlit, sqlalchemy, psycopg2
+- PostgreSQL configurado e dados de filmes disponíveis
 
-3. Execução do Projeto
-Para iniciar o painel, execute o seguinte comando:
+### 3.2. Configuração do Ambiente:
+1. Instale as bibliotecas necessárias:
+    ```bash
+    pip install pandas psycopg2-binary sqlalchemy streamlit plotly
+    ```
+   
+2. Configure o banco de dados PostgreSQL e carregue os dados de filmes.
 
+### 3.3. Execução do Dashboard:
+1. Crie o script `app.py` contendo a lógica para carregar e processar os dados do PostgreSQL.
+2. Importe as bibliotecas necessárias no Python:
+    ```python
+    import streamlit as st
+    import pandas as pd
+    import plotly.express as px
+    from sqlalchemy import create_engine
+    ```
+
+3. Configure a conexão com o banco de dados PostgreSQL e carregue as visualizações:
+    ```python
+    engine = create_engine('postgresql://user:password@localhost:5432/database')
+    ```
+
+4. Utilize o Streamlit para criar o dashboard com os gráficos interativos:
+    ```python
+    st.title('Dashboard de Análise de Filmes')
+    ```
+
+5. Exiba os gráficos interativos:
+    ```python
+    fig1 = px.bar(df_avg_temp, x='title', y='year')
+    st.plotly_chart(fig1)
+    ```
+
+### 3.4. Execução do Dashboard no Streamlit:
+Para rodar o dashboard, execute o seguinte comando no terminal:
+```bash
 streamlit run app.py
+```
 
-4. Acesso ao Dashboard
-O painel estará disponível http://localhost:8501 após a execução do comando acima.
+### 3.5. Capturas de Tela:
+![Dashboard de Filmes](link_para_imagem)
 
-Capturas de Tela do Dashboard
-Tela Inicial
+## 4. VIEWS SQL:
 
-Gráficos de Análise
+1. **avg_temp_por_dispositivo**: Calcula a média de temperatura por dispositivo.
+    ```sql
+    CREATE VIEW avg_temp_por_dispositivo AS
+    SELECT device_id, AVG(temperature) as avg_temp
+    FROM temperature_readings
+    GROUP BY device_id;
+    ```
 
-Visões SQL Utilizadas
-Consulta Principal (Tabela movies_initial)
-A tabela movies_initial contém os seguintes dados sobre os filmes:
+2. **leituras_por_hora**: Contagem de leituras por hora.
+    ```sql
+    CREATE VIEW leituras_por_hora AS
+    SELECT EXTRACT(HOUR FROM timestamp) AS hora, COUNT(*) AS contagem
+    FROM temperature_readings
+    GROUP BY hora;
+    ```
 
-id : Identificador único do filme.
-título : Título do filme.
-ano : Ano de lançamento.
-gênero : Gênero do filme.
-diretor : Diretor do filme.
-Elenco : Elenco principal.
-runtime : Duração do filme.
-A consulta que extrai os dados para o dashboard é:
+3. **temp_max_min_por_dia**: Calcula as temperaturas máximas e mínimas por dia.
+    ```sql
+    CREATE VIEW temp_max_min_por_dia AS
+    SELECT DATE(timestamp) AS data, MAX(temperature) AS temp_max, MIN(temperature) AS temp_min
+    FROM temperature_readings
+    GROUP BY data;
+    ```
 
-SQLite
+### 4.1. Propósito das Views:
+- **avg_temp_por_dispositivo**: A média de temperatura por dispositivo pode ser útil para identificar dispositivos com leituras mais altas ou mais baixas.
+- **leituras_por_hora**: Entender os padrões de leituras ao longo do dia pode ajudar a identificar picos de temperatura ou falhas em dispositivos.
+- **temp_max_min_por_dia**: Observar a variação da temperatura máxima e mínima ao longo do tempo pode fornecer insights sobre o comportamento térmico em diferentes dias.
 
-SELECT * FROM movies_initial;
-Consulta de Análise por Gênero e Ano
-Para análise de tendências ao longo do tempo, uma consulta pode ser realizada para verificar a distribuição de filmes por gênero e ano:
+## 5. POSSÍVEIS INSIGHTS:
+- **Análise do Gênero dos Filmes**: Verificando a distribuição dos filmes por gênero ao longo dos anos, podemos identificar tendências e mudanças nas preferências do público.
+- **Desempenho dos Filmes**: Comparar o desempenho de filmes em termos de avaliação e bilheteira pode ajudar a entender o que atrai mais os espectadores.
 
-SQLite
+## 6. ENVIANDO PARA O GITHUB:
+1. Crie um novo repositório no GitHub.
+2. Execute os seguintes comandos Git para enviar seu código:
+    ```bash
+    git add .
+    git commit -m "Projeto de Análise de Filmes até 2016"
+    git remote add origin URL_DO_SEU_REPOSITORIO
+    git push -u origin main
+    ```
 
-SELECT year, genre, COUNT(*) AS num_movies
-FROM movies_initial
-GROUP BY year, genre
-ORDER BY year, num_movies DESC;
-Possíveis Insights Obtidos dos Dados
-A análise dos dados pode fornecer os seguintes insights:
+### 6.1. Dicas:
+- Mantenha seu código limpo, bem comentado e siga boas práticas de programação Python.
+- Organize seu código de forma modular para facilitar futuras alterações ou escalabilidade.
 
-Distribuição de Filmes por Gênero ao Longo do Tempo : identificar quais gêneros são mais comuns em cada década.
-Tendências de Lançamento : Observar os períodos de maior número de lançamentos de filmes e como isso se correlaciona com os anos de sucesso no cinema.
-Diretores Mais Produtivos : Avaliar quais diretores têm o maior número de lançamentos ao longo dos anos.
-Popularidade por País e Idioma : Investiga quais países produzidos mais filmes e os idiomas mais comuns nos lançamentos.
-Esse formato oferece uma visão mais completa sobre o seu projeto, fornecimento mais claro para quem utilizar ou revisar o código. Isso ajuda na escalabilidade do projeto, caso novas funcionalidades ou requisitos sejam adicionais no futuro.
+## 7. CONCLUSÃO:
+Esse projeto resultou em um dashboard interativo, utilizando dados de filmes até 2016, com o objetivo de proporcionar insights sobre tendências cinematográficas e permitir uma análise profunda dos filmes, suas classificações, e os fatores que influenciam suas avaliações.
+
+---
+
+Se precisar de mais algum ajuste ou adição, estou à disposição!
