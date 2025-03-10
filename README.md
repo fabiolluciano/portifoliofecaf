@@ -1,9 +1,7 @@
 # portifoliofecaf
-Aqui está a versão ajustada do seu documento com foco no que você fez sobre os filmes até 2016:
 
----
 
-# Documentação do Projeto: Análise de Dados de Filmes até 2016
+Documentação do Projeto: Análise de Dados de Filmes até 2016
 
 ## 1. TÍTULO: 
 Análise de Dados de Filmes até 2016 com Streamlit e PostgreSQL
