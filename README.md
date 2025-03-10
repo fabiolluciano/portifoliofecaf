@@ -109,7 +109,3 @@ streamlit run app.py
 
 ## 7. CONCLUSÃO:
 Esse projeto resultou em um dashboard interativo, utilizando dados de filmes até 2016, com o objetivo de proporcionar insights sobre tendências cinematográficas e permitir uma análise profunda dos filmes, suas classificações, e os fatores que influenciam suas avaliações.
-
----
-
-Se precisar de mais algum ajuste ou adição, estou à disposição!
